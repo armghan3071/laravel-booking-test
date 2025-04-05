@@ -7,6 +7,9 @@ use App\Http\Controllers\Api\V1\Controller;
 use App\Http\Requests\StoreBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
 
+use App\Http\Resources\V1\BookingResource;
+use App\Http\Resources\V1\BookingCollection;
+
 class BookingController extends Controller
 {
     /**
@@ -14,7 +17,7 @@ class BookingController extends Controller
      */
     public function index()
     {
-        return Booking::all();
+        return new BookingCollection(Booking::paginate());
     }
 
     /**
@@ -38,7 +41,7 @@ class BookingController extends Controller
      */
     public function show(Booking $booking)
     {
-        //
+        return new BookingResource($booking);
     }
 
     /**
