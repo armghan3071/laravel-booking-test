@@ -11,8 +11,8 @@ class UpdateBookingRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        //TODO://Make it authorize
-        return true;
+        $user = $this->user();
+        return $user != null && $user->tokenCan("update");
     }
 
     /**
