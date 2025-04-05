@@ -21,6 +21,7 @@ class CustomerResource extends JsonResource
             "city" => $this->city,
             "province" => $this->province,
             "cap" => $this->cap,
+            "bookings" => BookingResource::collection($this->whenLoaded("bookings"))
         ];
     }
 }

@@ -23,10 +23,17 @@ class CustomerController extends Controller
     {
         $query = new CustomerQuery();
         $queryItems = $query->transform($request);
-        if(!count($queryItems))
-            return new CustomerCollection(Customer::paginate());
 
-        return new CustomerCollection(Customer::where($queryItems)->paginate());
+        $customers = Customer::where($queryItems);
+
+        $includeBookings = $request->query("includeBookings");
+
+        if($includeBookings){
+            $customers = $customers->with("bookings");
+        }
+        $customers = $customers->paginate();
+
+        return new CustomerCollection($customers);
     }
 
     /**
@@ -50,6 +57,11 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
+        $includeBookings = request()->query("includeBookings");
+
+        if($includeBookings){
+            return new CustomerResource($customer->loadMissing("bookings"));
+        }
         return new CustomerResource($customer);
     }
 
