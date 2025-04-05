@@ -1,19 +1,11 @@
 <?php
 
+use App\Http\Controllers\Api\V1\BookingController;
+use App\Http\Controllers\Api\V1\CustomerController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return response()->json($request->user());
-});
-Route::middleware('auth:sanctum')->get('/export/users', [ExportController::class, 'exportCsv']);
-
-//V1 Api
-Route::group(['prefix' => 'v1', "namespace" => "App\Http\Controllers\Api\V1", "middleware" => "auth:sanctum"], function(){
-    Route::apiResource("customers", CustomerController::class);
-    Route::apiResource("bookings", BookingController::class);
+// V1 Api
+Route::group(['prefix' => 'v1', 'middleware' => 'auth:sanctum'], function () {
+    Route::apiResource('customers', CustomerController::class);
+    Route::apiResource('bookings', BookingController::class);
 });

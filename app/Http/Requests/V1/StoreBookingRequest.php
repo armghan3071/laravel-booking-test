@@ -12,7 +12,8 @@ class StoreBookingRequest extends FormRequest
     public function authorize(): bool
     {
         $user = $this->user();
-        return $user != null && $user->tokenCan("create");
+
+        return $user != null && $user->tokenCan('create');
     }
 
     /**
@@ -23,8 +24,8 @@ class StoreBookingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "customer_id" => ['required'],
-            "booking_date" => ['required', "date_format:Y-m-d H:i:s"],
+            'customer_id' => ['required'],
+            'booking_date' => ['required', 'date_format:Y-m-d H:i:s'],
         ];
     }
 }

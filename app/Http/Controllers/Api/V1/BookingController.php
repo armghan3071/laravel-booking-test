@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Models\Booking;
-use App\Http\Controllers\Api\V1\Controller;
 use App\Http\Requests\V1\StoreBookingRequest;
 use App\Http\Requests\V1\UpdateBookingRequest;
-
-use App\Http\Resources\V1\BookingResource;
 use App\Http\Resources\V1\BookingCollection;
-
+use App\Http\Resources\V1\BookingResource;
+use App\Models\Booking;
 use App\Services\V1\BookingQuery;
-
 use Illuminate\Http\Request;
 
 class BookingController extends Controller
@@ -22,17 +18,17 @@ class BookingController extends Controller
     public function index(Request $request)
     {
         $request->all();
-        $query = new BookingQuery();
+        $query = new BookingQuery;
         $queryItems = $query->transform($request);
 
-        $bookings = Booking::join("customers", "customers.id", "bookings.customer_id")
-        ->where($queryItems);
+        $bookings = Booking::join('customers', 'customers.id', 'bookings.customer_id')
+            ->where($queryItems);
 
-        $includeCustomer = $request->query("includeCustomer");
+        $includeCustomer = $request->query('includeCustomer');
 
-        if($includeCustomer){
+        if ($includeCustomer) {
             // return $includeCustomer;
-            $bookings = $bookings->with("customer");
+            $bookings = $bookings->with('customer');
         }
         $bookings = $bookings->paginate();
 
@@ -52,14 +48,14 @@ class BookingController extends Controller
      */
     public function show(Booking $booking)
     {
-        $includeCustomer = request()->query("includeCustomer");
+        $includeCustomer = request()->query('includeCustomer');
 
-        if($includeCustomer){
-            return new BookingResource($booking->loadMissing("customer"));
+        if ($includeCustomer) {
+            return new BookingResource($booking->loadMissing('customer'));
         }
+
         return new BookingResource($booking);
     }
-
 
     /**
      * Update the specified resource in storage.

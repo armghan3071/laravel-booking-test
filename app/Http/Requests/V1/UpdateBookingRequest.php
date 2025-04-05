@@ -12,7 +12,8 @@ class UpdateBookingRequest extends FormRequest
     public function authorize(): bool
     {
         $user = $this->user();
-        return $user != null && $user->tokenCan("update");
+
+        return $user != null && $user->tokenCan('update');
     }
 
     /**
@@ -23,7 +24,7 @@ class UpdateBookingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "booking_date" => ['sometimes', 'required', "date_format:Y-m-d H:i:s"],
+            'booking_date' => ['sometimes', 'required', 'date_format:Y-m-d H:i:s'],
         ];
     }
 }

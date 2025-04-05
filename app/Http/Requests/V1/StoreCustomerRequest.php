@@ -12,7 +12,8 @@ class StoreCustomerRequest extends FormRequest
     public function authorize(): bool
     {
         $user = $this->user();
-        return $user != null && $user->tokenCan("create");
+
+        return $user != null && $user->tokenCan('create');
     }
 
     /**
@@ -23,14 +24,12 @@ class StoreCustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => ['required'],
-            "email" => ['required', 'email', 'unique:customers,email'],
-            "address" => ['required'],
-            "city" => ['required'],
-            "province" => ['required'],
-            "cap" => ['required'],
+            'name' => ['required'],
+            'email' => ['required', 'email', 'unique:customers,email'],
+            'address' => ['required'],
+            'city' => ['required'],
+            'province' => ['required'],
+            'cap' => ['required'],
         ];
     }
-
-
 }

@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Models\Customer;
-use App\Http\Controllers\Api\V1\Controller;
-use App\Http\Resources\V1\CustomerResource;
-use App\Http\Resources\V1\CustomerCollection;
-
-use App\Services\V1\CustomerQuery;
-
 use App\Http\Requests\V1\StoreCustomerRequest;
 use App\Http\Requests\V1\UpdateCustomerRequest;
-
+use App\Http\Resources\V1\CustomerCollection;
+use App\Http\Resources\V1\CustomerResource;
+use App\Models\Customer;
+use App\Services\V1\CustomerQuery;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -21,15 +17,15 @@ class CustomerController extends Controller
      */
     public function index(Request $request)
     {
-        $query = new CustomerQuery();
+        $query = new CustomerQuery;
         $queryItems = $query->transform($request);
 
         $customers = Customer::where($queryItems);
 
-        $includeBookings = $request->query("includeBookings");
+        $includeBookings = $request->query('includeBookings');
 
-        if($includeBookings){
-            $customers = $customers->with("bookings");
+        if ($includeBookings) {
+            $customers = $customers->with('bookings');
         }
         $customers = $customers->paginate();
 
@@ -57,14 +53,14 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        $includeBookings = request()->query("includeBookings");
+        $includeBookings = request()->query('includeBookings');
 
-        if($includeBookings){
-            return new CustomerResource($customer->loadMissing("bookings"));
+        if ($includeBookings) {
+            return new CustomerResource($customer->loadMissing('bookings'));
         }
+
         return new CustomerResource($customer);
     }
-
 
     /**
      * Update the specified resource in storage.

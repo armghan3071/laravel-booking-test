@@ -5,8 +5,6 @@ namespace App\Http\Resources\V1;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-use App\Http\Resources\V1\CustomerResource;
-
 class BookingResource extends JsonResource
 {
     /**
@@ -17,10 +15,10 @@ class BookingResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "id" => $this->id,
-            "customer_id" => $this->customer_id,
-            "booking_date" => $this->booking_date,
-            "customer" => new CustomerResource($this->whenLoaded('customer'))
+            'id' => $this->id,
+            'customer_id' => $this->customer_id,
+            'booking_date' => $this->booking_date,
+            'customer' => new CustomerResource($this->whenLoaded('customer')),
         ];
     }
 }

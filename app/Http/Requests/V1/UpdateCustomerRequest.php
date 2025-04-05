@@ -13,7 +13,8 @@ class UpdateCustomerRequest extends FormRequest
     public function authorize(): bool
     {
         $user = $this->user();
-        return $user != null && $user->tokenCan("update");
+
+        return $user != null && $user->tokenCan('update');
     }
 
     /**
@@ -24,24 +25,24 @@ class UpdateCustomerRequest extends FormRequest
     public function rules(): array
     {
         $method = $this->method();
-        if($method === "PUT"){
+        if ($method === 'PUT') {
             return [
-                "name" => ['required'],
-                "email" => ['required', 'email', Rule::unique('customers', 'email')->ignore($this->customer)],
-                "address" => ['required'],
-                "city" => ['required'],
-                "province" => ['required'],
-                "cap" => ['required'],
+                'name' => ['required'],
+                'email' => ['required', 'email', Rule::unique('customers', 'email')->ignore($this->customer)],
+                'address' => ['required'],
+                'city' => ['required'],
+                'province' => ['required'],
+                'cap' => ['required'],
             ];
         }
-        if($method === 'PATCH'){
+        if ($method === 'PATCH') {
             return [
-                "name" => ['sometimes', 'required'],
-                "email" => ['sometimes', 'required', 'email', Rule::unique('customers', 'email')->ignore($this->customer)],
-                "address" => ['sometimes', 'required'],
-                "city" => ['sometimes', 'required'],
-                "province" => ['sometimes', 'required'],
-                "cap" => ['sometimes', 'required'],
+                'name' => ['sometimes', 'required'],
+                'email' => ['sometimes', 'required', 'email', Rule::unique('customers', 'email')->ignore($this->customer)],
+                'address' => ['sometimes', 'required'],
+                'city' => ['sometimes', 'required'],
+                'province' => ['sometimes', 'required'],
+                'cap' => ['sometimes', 'required'],
             ];
         }
     }
