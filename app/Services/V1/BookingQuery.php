@@ -4,14 +4,13 @@ namespace App\Services\V1;
 
 use Illuminate\Http\Request;
 
-class CustomerQuery {
+class BookingQuery {
     protected $allowedParams = [
-        "name" => ['eq'],
-        "email" => ['eq'],
-        "address" => ['eq'],
-        "city" => ['eq'],
-        "province" => ['eq'],
-        'cap' => ['eq', 'gt', 'lt'],
+        "booking_date" => ['eq'],
+        "customer_email" => ['eq'],
+        "customer_city" => ['eq'],
+        "customer_province" => ['eq'],
+        'customer_cap' => ['eq'],
     ];
 
     protected $operatorMap = [
@@ -29,6 +28,12 @@ class CustomerQuery {
            $q = $req->query($param);
 
            if(!isset($q)) continue;
+
+           if(str_contains($param, "customer_")){
+                $param = str_replace("customer_", "customers.", $param);
+           }else{
+                $param = "bookings.".$param;
+           }
 
            foreach ($operators as $operator) {
             if(isset($q[$operator])){

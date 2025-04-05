@@ -10,6 +10,15 @@ class Customer extends Model
     /** @use HasFactory<\Database\Factories\CustomerFactory> */
     use HasFactory;
 
+    protected $fillable = [
+        "name",
+        "email",
+        "address",
+        "city",
+        "province",
+        "cap"
+    ];
+
     public function bookings(){
         return $this->hasMany(Booking::class);
     }

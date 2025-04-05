@@ -5,6 +5,8 @@ namespace App\Http\Resources\V1;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+use App\Http\Resources\V1\CustomerResource;
+
 class BookingResource extends JsonResource
 {
     /**
@@ -17,7 +19,8 @@ class BookingResource extends JsonResource
         return [
             "id" => $this->id,
             "customer_id" => $this->customer_id,
-            "booking_date" => $this->booking_date
+            "booking_date" => $this->booking_date,
+            "customer" => new CustomerResource($this->whenLoaded('customer'))
         ];
     }
 }
