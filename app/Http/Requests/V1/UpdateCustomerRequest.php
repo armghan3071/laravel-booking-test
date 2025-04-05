@@ -45,5 +45,7 @@ class UpdateCustomerRequest extends FormRequest
                 'cap' => ['sometimes', 'required'],
             ];
         }
+
+        return [];
     }
 }

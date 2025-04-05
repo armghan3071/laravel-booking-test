@@ -19,8 +19,13 @@ class Customer extends Model
         'cap',
     ];
 
+    /**
+     * Get the bookings owned by the customer.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function bookings()
     {
-        return $this->hasMany(Booking::class);
+        return $this->hasMany(\App\Models\Booking::class);
     }
 }

@@ -15,6 +15,11 @@ class Booking extends Model
         'booking_date',
     ];
 
+    /**
+     * Get the customer that owns the booking.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function customer()
     {
         return $this->belongsTo(Customer::class);
