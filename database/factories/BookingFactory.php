@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Model\Booking;
-use App\Model\Customer;
+use App\Models\Booking;
+use App\Models\Customer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
