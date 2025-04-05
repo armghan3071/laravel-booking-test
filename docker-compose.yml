@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel-booking-system
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    networks:
+      - app-network
+    ports:
+      - 8000:9000
+    environment:
+      - PHP_IDE_CONFIG=serverName=localhost
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: laravel_booking_db
+      MYSQL_USER:
+      MYSQL_PASSWORD:
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
